@@ -28,7 +28,10 @@ import dotenv from 'dotenv';
     DB_USER: Joi.string().required(),
     DB_PASSWORD: Joi.string().required(),
     DB_NAME: Joi.string().required(),
-    // DATABASE_URL: Joi.string().required(),
+    SMTP_HOST: Joi.string().required(),
+    SMTP_PORT: Joi.string().required(),
+    SMTP_USER: Joi.string().required().allow(''),
+    SMTP_PASSWORD: Joi.string().required().allow(''),
   }).unknown(true);
 
   const { value: envVars, error } = schema.prefs({ errors: { label: 'key' } }).validate(process.env, { abortEarly: false });
@@ -53,7 +56,6 @@ export default {
     port: envVars.DB_PORT,
     dialect: 'postgres',
     logging: false,
-    databaseURL: envVars.DATABASE_URL
   },
   test: {
     username: envVars.DB_USER,
@@ -61,7 +63,6 @@ export default {
     database: envVars.DB_NAME,
     host: envVars.DB_HOST,
     port: envVars.DB_PORT,
-    databaseURL: envVars.DATABASE_URL,
     dialect: 'postgres',
     logging: false
   },
@@ -69,7 +70,6 @@ export default {
     username: envVars.DB_USER,
     password: envVars.DB_PASSWORD,
     database: envVars.DB_NAME,
-    databaseURL: envVars.DATABASE_URL,
     host: envVars.DB_HOST,
     port: envVars.DB_PORT,
     dialect: 'postgres',
@@ -81,7 +81,6 @@ export default {
     database: envVars.DB_NAME,
     port: envVars.DB_PORT,
     host: envVars.DB_HOST,
-    databaseURL: envVars.DATABASE_URL,
     dialect: 'postgres',
     logging: false
   },
