@@ -86,7 +86,6 @@ export const signUp = async (
 
     return reply.code(STANDARD.OK.statusCode).send({
       token,
-      user: createUser,
     });
 
     
