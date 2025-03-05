@@ -2,14 +2,13 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-COPY prisma ./prisma/
+COPY package.json package-lock.json ./app
 
 RUN npm install --legacy-peer-deps
 
-RUN npm run db:gen
+# RUN npm run db:gen
 
-COPY . .
+COPY . ./app
 
 EXPOSE 5001
 

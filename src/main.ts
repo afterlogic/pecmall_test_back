@@ -1,21 +1,19 @@
 import fastify from 'fastify';
 import pino from 'pino';
 import userRouter from './routes/user.router';
-import postRouter from './routes/post.router';
-import loadConfig from './config/env.config';
-import { utils } from './utils';
+import envVars  from './config/config';
 import formbody from '@fastify/formbody';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
+import db from './models'
+// loadConfig();
 
-loadConfig();
-
-const port = Number(process.env.API_PORT) || 5001;
-const host = String(process.env.API_HOST);
+const port = Number(envVars.port) || 5001;
+const host = String(envVars.host);
 
 const startServer = async () => {
   const server = fastify({
-    logger: pino({ level: process.env.LOG_LEVEL }),
+    logger: pino({ level: envVars.logLevel }),
   });
 
   // Register middlewares
@@ -25,7 +23,6 @@ const startServer = async () => {
 
   // Register routes
   server.register(userRouter, { prefix: '/api/user' });
-  server.register(postRouter, { prefix: '/api/post' });
 
   // Set error handler
   server.setErrorHandler((error, _request, reply) => {
@@ -36,7 +33,6 @@ const startServer = async () => {
   // Health check route
   server.get('/health', async (_request, reply) => {
     try {
-      await utils.healthCheck();
       reply.status(200).send({
         message: 'Health check endpoint success.',
       });
@@ -49,7 +45,7 @@ const startServer = async () => {
 
   // Root route
   server.get('/', (request, reply) => {
-    reply.status(200).send({ message: 'Hello from fastify boilerplate!' });
+    reply.status(200).send({ message: 'Hello from fastify!' });
   });
 
   // Graceful shutdown
@@ -69,6 +65,11 @@ const startServer = async () => {
 
   // Start server
   try {
+
+    (async () => {
+      await db.sequelize.sync();
+    })();
+
     await server.listen({
       port,
       host,

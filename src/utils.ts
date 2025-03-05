@@ -1,10 +1,7 @@
 import * as bcrypt from 'bcryptjs';
-import { PrismaClient } from '@prisma/client';
 import * as JWT from 'jsonwebtoken';
 import Joi from 'joi';
 import { FastifyReply, FastifyRequest } from 'fastify';
-
-export const prisma = new PrismaClient();
 
 export const utils = {
   isJSON: (data: string) => {
@@ -39,14 +36,6 @@ export const utils = {
         resolve(result);
       });
     });
-  },
-
-  healthCheck: async (): Promise<void> => {
-    try {
-      await prisma.$queryRaw`SELECT 1`;
-    } catch (e) {
-      throw new Error(`Health check failed: ${e.message}`);
-    }
   },
 
   getTokenFromHeader: (

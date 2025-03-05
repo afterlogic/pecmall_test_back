@@ -31,12 +31,14 @@ async function userRouter(fastify: FastifyInstance) {
       schema: {
         body: {
           type: 'object',
-          required: ['email', 'password'],
+          required: ['email'],
           properties: {
             email: { type: 'string', format: 'email' },
-            password: { type: 'string', minLength: 8 },
             firstName: { type: 'string' },
             lastName: { type: 'string' },
+            patronimicName: { type: 'string' },
+            phone: { type: 'string' },
+            region: { type: 'string' },
           },
         },
       },

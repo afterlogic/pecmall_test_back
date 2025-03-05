@@ -1,7 +1,7 @@
 import { utils } from '../utils';
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { prisma } from '../utils';
 import { ERRORS } from './errors.helper';
+import db from 'src/models';
 
 export const checkValidRequest = (
   request: FastifyRequest,
@@ -41,7 +41,7 @@ export const checkValidUser = async (
   }
 
   try {
-    const userData = await prisma.user.findUnique({
+    const userData = await db.User.findOne({
       where: { id: decoded.id },
     });
     if (!userData) {

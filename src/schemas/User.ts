@@ -7,9 +7,11 @@ export interface IUserLoginDto {
 
 export interface IUserSignupDto {
   email: string;
-  password: string;
   firstName: string;
   lastName: string;
+  patronimicName: string;
+  phone: string;
+  region?: string;
 }
 
 export const loginSchema = Joi.object({
@@ -19,7 +21,9 @@ export const loginSchema = Joi.object({
 
 export const signupSchema = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().min(8).required(),
   firstName: Joi.string().optional(),
   lastName: Joi.string().optional(),
+  patronimicName: Joi.string().optional(),
+  phone: Joi.string().optional(),
+  region: Joi.string().optional(),
 });

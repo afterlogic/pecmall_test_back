@@ -6,9 +6,7 @@ COPY package.json package-lock.json ./
 
 RUN npm install --legacy-peer-deps
 
-COPY prisma ./prisma
-
-RUN npm run db:gen
+# RUN npm run db:gen
 
 COPY . .
 
