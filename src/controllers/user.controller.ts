@@ -24,7 +24,7 @@ export const login = async (
         .send(ERRORS.userNotExists.message);
     }
 
-    const checkPass = await utils.compareHash(password, user.password);
+    const checkPass = user.isPasswordMatch(password);
     if (!checkPass) {
       return reply
         .code(ERRORS.userCredError.statusCode)
@@ -41,7 +41,6 @@ export const login = async (
 
     return reply.code(STANDARD.OK.statusCode).send({
       token,
-      user,
     });
   } catch (err) {
     return handleServerError(reply, err);

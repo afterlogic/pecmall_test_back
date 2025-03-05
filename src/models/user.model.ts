@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
          * @param {string} password
          * @returns {Promise<boolean>}
          */
-        // async isPasswordMatch(password) {
-        //     return bcrypt.compare(password, this.password);
-        // };  
+        async isPasswordMatch(password) {
+            return bcrypt.compare(password, this.password);
+        };  
     }
     
     User.init(
