@@ -13,6 +13,9 @@ export interface IUserSignupDto {
   phone: string;
   region?: string;
 }
+export interface IUserResetPassDto {
+  email: string;
+}
 
 export const loginSchema = Joi.object({
   email: Joi.string().email().required(),
@@ -26,4 +29,8 @@ export const signupSchema = Joi.object({
   patronimicName: Joi.string().optional(),
   phone: Joi.string().optional(),
   region: Joi.string().optional(),
+});
+
+export const resetPassSchema = Joi.object({
+  email: Joi.string().email().required(),
 });

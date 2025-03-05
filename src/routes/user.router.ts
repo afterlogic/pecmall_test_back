@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import * as controllers from '../controllers';
 import { utils } from '../utils';
-import { loginSchema, signupSchema } from '../schemas/User';
+import { loginSchema, resetPassSchema, signupSchema } from '../schemas/User';
 
 async function userRouter(fastify: FastifyInstance) {
   fastify.post(
@@ -48,6 +48,26 @@ async function userRouter(fastify: FastifyInstance) {
       preValidation: utils.preValidation(signupSchema),
     },
     controllers.signUp,
+  );
+
+  fastify.post(
+    '/resetPassword',
+    {
+      schema: {
+        body: {
+          type: 'object',
+          required: ['email'],
+          properties: {
+            email: { type: 'string'},
+          },
+        },
+      },
+      config: {
+        description: 'User reset pass endpoint',
+      },
+      preValidation: utils.preValidation(resetPassSchema),
+    },
+    controllers.resetPassword,
   );
 }
 

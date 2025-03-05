@@ -2,11 +2,11 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import db from '../models';
 import { ERRORS, handleServerError } from '../helpers/errors.helper';
 import * as JWT from 'jsonwebtoken';
-import { utils } from '../utils';
 import { STANDARD } from '../constants/request';
-import { IUserLoginDto, IUserSignupDto } from '../schemas/User';
+import { IUserLoginDto, IUserResetPassDto, IUserSignupDto } from '../schemas/User';
 import generator  from 'generate-password';
 import mailer from '../services/mailer';
+import { Op } from '@sequelize/core';
 const { User } = db;
 
 export const login = async (
@@ -17,7 +17,7 @@ export const login = async (
 ) => {
   try {
     const { email, password } = request.body;
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email: email.toLowerCase() } });
     if (!user) {
       return reply
         .code(ERRORS.userNotExists.statusCode)
@@ -65,7 +65,7 @@ export const signUp = async (
     });
     // const hashPass = await utils.genSalt(10, password);
     const createPayload = {
-      email,
+      email: email.toLowerCase().trim(),
       firstName: firstName.trim(),
       lastName: lastName.trim(),
       patronimicName: patronimicName.trim(),
@@ -88,6 +88,36 @@ export const signUp = async (
     });
 
     
+  } catch (err) {
+    return handleServerError(reply, err);
+  }
+};
+
+export const resetPassword = async (
+  request: FastifyRequest<{
+    Body: IUserResetPassDto;
+  }>,
+  reply: FastifyReply,
+) => {
+  try {
+    const { email } = request.body;
+    const user = await User.findOne({
+      where: {
+        [Op.or]: [{ email: email.toLowerCase() }, { phone: email }],
+      },
+    });
+    if (!user) {
+      return reply.code(ERRORS.userNotExists.statusCode).send(ERRORS.userNotExists);
+    }
+    const password = generator.generate({
+      length: 14,
+      numbers: true
+    });
+    await User.update({ password }, {where: { id: user.id }});
+    mailer.sendPassword(user.email, password);
+
+    return reply.code(STANDARD.OK.statusCode).send({});
+
   } catch (err) {
     return handleServerError(reply, err);
   }
