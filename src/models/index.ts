@@ -24,9 +24,7 @@ sequelize.authenticate()
 .then(() => console.info('Connected to DB'))
 .catch(e => console.error('Failed to connect to DB: ', e));
 
-
-// const User = require('./user.model.ts')(sequelize, DataTypes);
-const User = require('./user.model.ts')(sequelize, DataTypes);
+const User = require('./user.model')(sequelize, DataTypes);
 
 
 const models = {
