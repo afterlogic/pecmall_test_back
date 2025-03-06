@@ -11,6 +11,42 @@ module.exports = (sequelize, DataTypes) => {
         patronimicName: string;
         phone: string;
         email: string;
+        // userType: string;
+
+//         Evgeniy Shelaykin, [6 марта 2025 г., 18:04:54]:
+        // companyName: string;
+// ИНН - inn  
+// КПП - kpp  
+// Банк - bank  
+// Город банка - bankCity  
+// БИК - bik  
+// Счет - account  
+// Корр. счет - corrAccount  
+// ОГРН - ogrn  
+// ОКПО - okpo  
+
+// Юридический адрес - legalAddress  
+
+// Индекс - postalCode  
+// Страна - country  
+// Регион - region  
+// Город - city  
+// Улица - street  
+// Номер дома - houseNumber  
+// Корпус - building  
+// Квартира / Офис - apartment
+
+
+// companyData
+
+
+// userType
+
+
+// false-user userType
+// true-company userType
+
+
         createdAt: Date;
         updatedAt: Date;
     

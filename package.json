@@ -14,10 +14,10 @@
     "lint:fix": "eslint --fix '{src,test}/**/*.ts'",
     "format": "prettier --write 'src/**/*.ts'",
     "test": "jest --config test/jest.json --runInBand --passWithNoTests --forceExit",
-    "migration:create": "cross-env UMZUG=false yarn sequelize migration:create --name migration",
-    "migration:make": "cross-env UMZUG=false yarn sequelize-mig migration:make -n migration",
-    "migration:run": "cross-env UMZUG=false yarn sequelize db:migrate",
-    "migration:init": "cross-env UMZUG=false yarn sequelize init"
+    "migration:create": "cross-env yarn sequelize migration:create --name migration",
+    "migration:make": "cross-env yarn sequelize-mig migration:make -n migration",
+    "migration:run": "cross-env yarn sequelize db:migrate",
+    "migration:init": "cross-env yarn sequelize init"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",
@@ -73,6 +73,7 @@
     "nyc": "17.0.0",
     "pino-pretty": "11.2.1",
     "prettier": "3.3.3",
+    "sequelize-typescript-migration": "^0.0.1-beta.3",
     "stop-only": "^3.3.2",
     "tap": "21.0.0",
     "ts-node": "10.9.2",

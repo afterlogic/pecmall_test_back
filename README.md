@@ -31,6 +31,12 @@ Launch your Fastify server with this command:
 npm run dev
 ```
 
+### SMTP for testing
+
+SMTP server used from 
+https://www.wpoven.com/tools/free-smtp-server-for-testing
+Put either a user email or a sender (systemuser@email.com) email to filter emails related to the this server
+
 ### For Build Generation
 
 Build server with command: 

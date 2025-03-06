@@ -1,11 +1,8 @@
-import { DataTypes }  from 'sequelize';
-import { Sequelize } from 'sequelize-typescript';
-import pg from 'pg';
-
-import path from'path';
-
-import envVars  from '../config/config';
-// const logger = require('../config/logger');
+const { Sequelize, DataTypes } = require('sequelize');
+const path = require('path');
+const {Umzug, SequelizeStorage} = require('umzug')
+const envVars = require('../config/config').default;
+const pg = require('pg');
 
 const config = {
   host: envVars[process.env.NODE_ENV].host,
@@ -26,7 +23,6 @@ sequelize.authenticate()
 
 const User = require('./user.model')(sequelize, DataTypes);
 
-
 const models = {
   User
 };
@@ -35,26 +31,21 @@ Object.values(models)
   .filter((model) => typeof model.associate === 'function')
   .forEach((model) => model.associate(models));
 
-const db = { ...models, sequelize: sequelize, Sequelize: Sequelize };
+const db = { ...models, sequelize };
 
-// db.sequelize = sequelize;
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-// const umzug = new Umzug({
-//   migrations: {
-//     path: path.join(__dirname, '../migrations'),
-//     params: [sequelize.getQueryInterface()]
-//   },
-//   storage: 'sequelize',
-//   storageOptions: {
-//     sequelize
-//   }
-// });
+const umzug = new Umzug({
+  migrations: {glob: '/migrations/*.js'},
+  storage: new SequelizeStorage({sequelize}),
+});
 
 (async () => {
-  if (envVars.umzug !== 'false') {
-    // await umzug.up();
+  if (envVars.env !== 'test') {
+    await umzug.up();
     console.info('All migrations performed successfully');
   }
 })();
 
-export default db;
+module.exports = db;

@@ -3,6 +3,7 @@ import * as controllers from '../controllers';
 import { utils } from '../utils';
 import { loginSchema, resetPassSchema, signupSchema } from '../schemas/User';
 
+
 async function userRouter(fastify: FastifyInstance) {
   fastify.post(
     '/login',
@@ -39,6 +40,9 @@ async function userRouter(fastify: FastifyInstance) {
             patronimicName: { type: 'string' },
             phone: { type: 'string' },
             region: { type: 'string' },
+            userType: {type: 'boolean'},
+            companyData: {type: 'object'},
+            legalAddress: {type: 'object'}, 
           },
         },
       },
