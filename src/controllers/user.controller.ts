@@ -122,3 +122,16 @@ export const resetPassword = async (
     return handleServerError(reply, err);
   }
 };
+
+export const getMe = async (
+  request: FastifyRequest<{}>,
+  reply: FastifyReply,
+) => {
+  try {
+    
+    return reply.code(STANDARD.OK.statusCode).send({});
+
+  } catch (err) {
+    return handleServerError(reply, err);
+  }
+};

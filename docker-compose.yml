@@ -3,10 +3,8 @@ services:
     image: postgres:latest
     ports:
       - '5432:5432'
-    environment:
-      - POSTGRES_USER=mydevadmin
-      - POSTGRES_PASSWORD=mynodereactdev273930superadmin
-      - POSTGRES_DB={DB_NAME}
+    env_file:
+      - .env.docker
     volumes:
       - pg_data:/var/lib/postgresql
     networks:
@@ -33,7 +31,7 @@ services:
       - .env.docker
     volumes:
       - ./:/app
-      - /app/node_modules
+      - /app/app/node_modules
     networks:
       - backend
 

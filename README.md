@@ -1,19 +1,29 @@
-### 2. Set up the database
 
-This uses [Postgres database](https://www.postgresql.org/).
+# PECMALL
 
-To set up your database, run:
+## Overview
 
-```sh
-npm run migrate
-```
+Simple api server built with Node.js, Fastify and TypeScript.
 
-for production
+## Getting started
 
-```sh
-npm run migrate:prod
-```
-### 4. Start the Fastify server
+### Prerequisites
+
+- Node.js & npm installed
+- [Postgres database](https://www.postgresql.org/) installed
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repo-url>
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Start the Fastify server
 
 Launch your Fastify server with this command:
 
@@ -21,7 +31,7 @@ Launch your Fastify server with this command:
 npm run dev
 ```
 
-## For Build Generation
+### For Build Generation
 
 Build server with command: 
 

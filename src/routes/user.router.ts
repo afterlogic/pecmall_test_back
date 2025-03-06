@@ -69,6 +69,17 @@ async function userRouter(fastify: FastifyInstance) {
     },
     controllers.resetPassword,
   );
+
+  fastify.get(
+    '/',
+    {
+      schema: {},
+      config: {
+        description: 'Get user by token endpoint',
+      },
+    },
+    controllers.getMe,
+  );
 }
 
 export default userRouter;
