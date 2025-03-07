@@ -9,7 +9,7 @@ class Email {
         this.transport = nodemailer.createTransport({
             host: envVars.smtp.host,
             port: envVars.smtp.port,
-            secure: false, // use SSL
+            secure: envVars.smtp.secure, // use SSL
             auth: {
               user: envVars.smtp.user,
               pass: envVars.smtp.pass,
@@ -24,7 +24,7 @@ class Email {
     }
     async sendEmail(to: string, subject: string, text: string) {
         const mailOptions = {
-            from: 'systemuser@email.com',
+            from: 'pecmall@afterlogic.com',
             to,
             subject,
             text

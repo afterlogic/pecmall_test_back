@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const path = require('path');
 const {Umzug, SequelizeStorage} = require('umzug')
-const envVars = require('../config/config').default;
+const envVars = require('../config/configSequelize');
 const pg = require('pg');
 
 const config = {

@@ -27,26 +27,26 @@ export const loginSchema = Joi.object({
 
 export const companyDataSchema = Joi.object({
   companyName: Joi.string().required(),
-  inn: Joi.string().required(),
-  kpp: Joi.string().required(),
-  bank: Joi.string().required(),
-  bankCity: Joi.string().required(),
-  bik: Joi.string().required(),
-  account: Joi.string().required(),
-  corrAccount: Joi.string().required(),
-  ogrn: Joi.string().required(),
-  okpo: Joi.string().required(),
+  inn: Joi.string().optional(),
+  kpp: Joi.string().optional(),
+  bank: Joi.string().optional(),
+  bankCity: Joi.string().optional(),
+  bik: Joi.string().optional(),
+  account: Joi.string().optional(),
+  corrAccount: Joi.string().optional(),
+  ogrn: Joi.string().optional(),
+  okpo: Joi.string().optional(),
 })
 
 export const legalAddressSchema = Joi.object({
   postalCode: Joi.string().required(),
-  country: Joi.string().required(),
-  region: Joi.string().required(),
-  city: Joi.string().required(),
-  street: Joi.string().required(),
-  houseNumber: Joi.string().required(),
-  building: Joi.string().required(),
-  appartment: Joi.string().required(),
+  country: Joi.string().optional(),
+  region: Joi.string().optional(),
+  city: Joi.string().optional(),
+  street: Joi.string().optional(),
+  houseNumber: Joi.string().optional(),
+  building: Joi.string().optional(),
+  apartment: Joi.string().optional(),
 })
 
 export const signupSchema = Joi.object({

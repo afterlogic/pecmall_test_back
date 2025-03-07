@@ -23,8 +23,7 @@ export const login = async (
         .code(ERRORS.userNotExists.statusCode)
         .send(ERRORS.userNotExists.message);
     }
-
-    const checkPass = user.isPasswordMatch(password);
+    const checkPass = await user.isPasswordMatch(password);
     if (!checkPass) {
       return reply
         .code(ERRORS.userCredError.statusCode)
@@ -54,11 +53,12 @@ export const signUp = async (
   reply: FastifyReply,
 ) => {
   try {
-    const { email, firstName, lastName, patronimicName, phone } = request.body;
+    const { email, firstName, lastName, patronimicName, phone, userType } = request.body;
     const user = await User.findOne({ where: { email } });
     if (user) {
       return reply.code(ERRORS.userExists.statusCode).send(ERRORS.userExists);
     }
+    
     const password = generator.generate({
       length: 14,
       numbers: true
@@ -71,6 +71,11 @@ export const signUp = async (
       patronimicName: patronimicName.trim(),
       phone: phone.trim(),
       password,
+      userType: userType, 
+      ...userType ? {
+        companyData: request.body.companyData, 
+        legalAddress: request.body.legalAddress
+      } : {}
     }
     const createUser = await User.create(createPayload);
     const token = JWT.sign(

@@ -32,18 +32,7 @@ async function userRouter(fastify: FastifyInstance) {
       schema: {
         body: {
           type: 'object',
-          required: ['email'],
-          properties: {
-            email: { type: 'string', format: 'email' },
-            firstName: { type: 'string' },
-            lastName: { type: 'string' },
-            patronimicName: { type: 'string' },
-            phone: { type: 'string' },
-            region: { type: 'string' },
-            userType: {type: 'boolean'},
-            companyData: {type: 'object'},
-            legalAddress: {type: 'object'}, 
-          },
+          required: ['email']
         },
       },
       config: {

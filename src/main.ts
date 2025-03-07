@@ -11,6 +11,16 @@ import db from './models'
 const port = Number(envVars.port) || 5001;
 const host = String(envVars.host);
 
+// fastify.addContentTypeParser('application/json', { parseAs: 'string' }, function (req, body, done) {
+//   try {
+//     var json = JSON.parse(body)
+//     done(null, json)
+//   } catch (err) {
+//     err.statusCode = 400
+//     done(err, undefined)
+//   }
+// })  
+
 const startServer = async () => {
   const server = fastify({
     logger: pino({ level: envVars.logLevel }),

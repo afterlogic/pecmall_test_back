@@ -32,6 +32,7 @@ import dotenv from 'dotenv';
     SMTP_PORT: Joi.string().required(),
     SMTP_USER: Joi.string().required().allow(''),
     SMTP_PASSWORD: Joi.string().required().allow(''),
+    SMTP_SECURE: Joi.boolean().required(),
   }).unknown(true);
 
   const { value: envVars, error } = schema.prefs({ errors: { label: 'key' } }).validate(process.env, { abortEarly: false });
@@ -95,6 +96,7 @@ export default {
     host: envVars.SMTP_HOST,
     port: envVars.SMTP_PORT,
     user: envVars.SMTP_USER,
-    pass: envVars.SMTP_PASSWORD
+    pass: envVars.SMTP_PASSWORD,
+    secure: envVars.SMTP_SECURE
   }
 };

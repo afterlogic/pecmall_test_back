@@ -17,7 +17,9 @@
     "migration:create": "cross-env yarn sequelize migration:create --name migration",
     "migration:make": "cross-env yarn sequelize-mig migration:make -n migration",
     "migration:run": "cross-env yarn sequelize db:migrate",
-    "migration:init": "cross-env yarn sequelize init"
+    "migration:undo": "cross-env yarn sequelize db:migrate:undo",
+    "migration:init": "cross-env yarn sequelize init",
+    "docker:migration:make": "docker exec c86ef37e2525 yarn migration:make"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",

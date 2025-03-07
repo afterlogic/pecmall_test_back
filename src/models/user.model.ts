@@ -1,6 +1,7 @@
 import { Model, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 import * as bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
+// import { Json } from 'sequelize/types/utils';
 
 module.exports = (sequelize, DataTypes) => { 
     class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
@@ -11,41 +12,29 @@ module.exports = (sequelize, DataTypes) => {
         patronimicName: string;
         phone: string;
         email: string;
-        // userType: string;
-
-//         Evgeniy Shelaykin, [6 марта 2025 г., 18:04:54]:
-        // companyName: string;
-// ИНН - inn  
-// КПП - kpp  
-// Банк - bank  
-// Город банка - bankCity  
-// БИК - bik  
-// Счет - account  
-// Корр. счет - corrAccount  
-// ОГРН - ogrn  
-// ОКПО - okpo  
-
-// Юридический адрес - legalAddress  
-
-// Индекс - postalCode  
-// Страна - country  
-// Регион - region  
-// Город - city  
-// Улица - street  
-// Номер дома - houseNumber  
-// Корпус - building  
-// Квартира / Офис - apartment
-
-
-// companyData
-
-
-// userType
-
-
-// false-user userType
-// true-company userType
-
+        userType: string;
+        declare companyData: CreationOptional<object>;
+        // companyData: object;
+            // companyName: string;
+            // inn  
+            // kpp  
+            // bank  
+            // bankCity  
+            // bik  
+            // account  
+            // corrAccount  
+            // ogrn  
+            // okpo  
+        declare legalAddress: CreationOptional<object>;
+        // legalAddress: object;  
+            // postalCode  
+            // country  
+            // region  
+            // city  
+            // street  
+            // houseNumber  
+            // building  
+            // apartment
 
         createdAt: Date;
         updatedAt: Date;
@@ -95,7 +84,19 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-
+            userType: {
+                type: DataTypes.BOOLEAN,
+                allowNull: false,
+                defaultValue: false
+            },
+            companyData: {
+                type: DataTypes.JSON,
+                allowNull: true
+            },
+            legalAddress: {
+                type: DataTypes.JSON,
+                allowNull: true
+            },
             // technically, `createdAt` & `updatedAt` are added by Sequelize and don't need to be configured in Model.init
             // but the typings of Model.init do not know this. Add the following to mute the typing error:
             createdAt: DataTypes.DATE,
